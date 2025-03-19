@@ -10,20 +10,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Book.model.Service;
-
+import com.example.Book.repo.ServiceRepo;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class ServiceController {
 
-    private List<Service> Service = new ArrayList<>(
-            List.of(
-                    new Service("Navin", "Service1", true),
-                    new Service("Kiran", "Service2", true)));
+    private final ServiceRepo serviceRepository;
+
+    public ServiceController(ServiceRepo serviceRepository) {
+        this.serviceRepository = serviceRepository;
+    }
 
     @GetMapping("/service")
-    public List<Service> getStudents() {
-        return Service;
+    public List<Service> getServices() {
+
+        return serviceRepository.findAll();
     }
 
     @GetMapping("/csrf-token")
@@ -33,9 +35,8 @@ public class ServiceController {
     }
 
     @PostMapping("/service")
-    public Service addStudent(@RequestBody Service service) {
-        Service.add(service);
-        return service;
+    public Service addService(@RequestBody Service service) {
+        return serviceRepository.save(service);
     }
 
 }
