@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "users") // Explicitly set table name to avoid conflicts
@@ -18,19 +19,23 @@ public class Users {
     @Column(nullable = false) // Added nullable=false to ensure password is required
     private String password;
 
-    @Column(nullable = false)
+    @Transient
     private String confirmpassword;
+
+    @Column(nullable = false)
+    private String role;
 
     // Default constructor required by JPA
     public Users() {
     }
 
     // Constructor with fields for easier object creation
-    public Users(String username, String email, String password, String confirmpassword) {
+    public Users(String username, String email, String password, String confirmpassword, String role) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.confirmpassword = confirmpassword;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -61,11 +66,17 @@ public class Users {
         return confirmpassword;
     }
 
-    public void setconfirmpassword(String confirmpassword) {
-        this.confirmpassword = password;
+    public void setConfirmpassword(String confirmpassword) {
+        this.confirmpassword = confirmpassword;
     }
 
+    public String getRole() {
+        return role;
+    }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     @Override
     public String toString() {
