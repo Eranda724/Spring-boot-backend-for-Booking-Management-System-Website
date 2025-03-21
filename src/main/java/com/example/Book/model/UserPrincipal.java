@@ -8,26 +8,36 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserPrincipal implements UserDetails {
+    private String email;
+    private String password;
+    private String role; // "SERVICE_PROVIDER" or "CONSUMER"
 
-    private final Users user;
+    // Constructor
+    public UserPrincipal(ServiceProvider provider) {
+        this.email = provider.getEmail();
+        this.password = provider.getPassword();
+        this.role = "SERVICE_PROVIDER";
+    }
 
-    public UserPrincipal(Users user) {
-        this.user = user;
+    public UserPrincipal(Consumer consumer) {
+        this.email = consumer.getEmail();
+        this.password = consumer.getPassword();
+        this.role = "CONSUMER";
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return email; // Using email as username
     }
 
     @Override
@@ -49,6 +59,4 @@ public class UserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    
 }
