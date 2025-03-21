@@ -15,14 +15,15 @@ public class ServiceProvider {
     private String name;
     private String email;
     private String password;
-    private String role;
+    private String category;
 
     public ServiceProvider() {}
 
-    public ServiceProvider(String name, String email, String password) {
+    public ServiceProvider(String name, String email, String password, String category) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.category = category;
     }
 
 
@@ -35,6 +36,6 @@ public class ServiceProvider {
     public void setEmail(String email) { this.email = email; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 }

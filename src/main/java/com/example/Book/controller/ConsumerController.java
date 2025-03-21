@@ -17,8 +17,13 @@ public class ConsumerController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerConsumer(@RequestBody Consumer consumer) {
-        userService.registerConsumer(consumer);
-        return ResponseEntity.ok("Consumer registered successfully!");
-    }
+    public ResponseEntity<String> register(@RequestBody Consumer consumerselect) {
+        Consumer consumer = new Consumer(
+            consumerselect.getUsername(), 
+            consumerselect.getEmail(), 
+            consumerselect.getPassword()
+        );
+            userService.registerConsumer(consumer);
+            return ResponseEntity.ok("Consumer registered successfully!");
+}
 }
