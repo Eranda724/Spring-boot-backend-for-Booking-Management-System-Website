@@ -40,4 +40,5 @@ public class AuthController {
         String token = userService.loginUser(email, password);
         return ResponseEntity.ok("Bearer " + token);
     }
+
 }

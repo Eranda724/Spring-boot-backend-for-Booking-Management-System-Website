@@ -22,6 +22,8 @@ public class ConsumerController {
             consumerselect.getUsername(), 
             consumerselect.getEmail(), 
             consumerselect.getPassword()
+                .equals(consumerselect.getConfirmPassword())? consumerselect.getPassword() : null,
+            consumerselect.getConfirmPassword()
         );
             userService.registerConsumer(consumer);
             return ResponseEntity.ok("Consumer registered successfully!");

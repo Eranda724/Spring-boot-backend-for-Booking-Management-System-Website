@@ -19,9 +19,10 @@ public class ServiceProviderController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody ServiceProvider serviceProvider) {
         ServiceProvider provider = new ServiceProvider(
-            serviceProvider.getName(), 
+            serviceProvider.getUsername(), 
             serviceProvider.getEmail(), 
-            serviceProvider.getPassword(),
+            serviceProvider.getPassword().equals(serviceProvider.getConfirmPassword())? serviceProvider.getPassword() : null,
+            serviceProvider.getConfirmPassword(),
             serviceProvider.getCategory()
     );
         userService.registerServiceProvider(provider);
